@@ -47,6 +47,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column (nullable: true,unique: true)]
     private ?bool $actif = null;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Campus $campus = null;
+
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -179,4 +184,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
+    }
+
+   
 }

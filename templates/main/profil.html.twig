@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+
+
+
+
+{% block body %}
+
+
+        {% include ('inc/nav.html.twig') %}
+        <div> Date du jour {{"now" |date('Y:m:d') }}</div>
+        <div>Participant:</div>
+
+    <h2>page profil</h2>
+    <button>Rechercher</button>
+
+
+{% endblock %}
+
+
+
+{% block title %}
+
+    {{ parent() }} | Home
+
+{% endblock %}
