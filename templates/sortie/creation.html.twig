@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <nav>
+        <ul>
+            <li><a href="{{ path('main_accueil') }}" title="acceuil">Accueil</a></li>
+            <li><a href="{{ path('app_register') }}" title="profil">Mon Profil</a></li>
+            <li><a href="{{ path('app_logout') }}" title="deconnexion">Se déconnecté</a></li>
+
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Ma sortie</h1>
+
+        {{ form_start(sortieForm) }}
+        {{ form_widget(sortieForm) }}
+
+
+        <button type="submit" class="btn">Enregistrez</button>
+        {{ form_end(sortieForm) }}
+    </div>
+{% endblock %}
