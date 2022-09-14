@@ -20,7 +20,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private array $roles = [];
 
     /**
@@ -29,22 +29,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50,nullable: true)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50,nullable: true)]
     private ?string $prenom = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $telephone = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(length: 180,nullable: true, unique: true)]
     private ?string $pseudo = null;
 
-    #[ORM\Column]
+    #[ORM\Column (nullable: true,unique: true)]
     private ?bool $administrateur = null;
 
-    #[ORM\Column]
+    #[ORM\Column (nullable: true,unique: true)]
     private ?bool $actif = null;
 
     public function getId(): ?int
