@@ -9,7 +9,7 @@
 
         {% include ('inc/nav.html.twig') %}
         <div> Date du jour {{"now" |date('Y:m:d') }}</div>
-        <div>Participant:</div>
+        <div>Participant:{{ app.user.prenom }}</div>
 
     <h2>Filtrer les sortie</h2>
     <button>Rechercher</button>
