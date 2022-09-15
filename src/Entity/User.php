@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -49,6 +51,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Campus $campus = null;
+
+    #[ORM\ManyToMany(targetEntity: Sortie::class, inversedBy: 'users')]
+    private Collection $users;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Sortie::class)]
+    private Collection $sorties;
+
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+        $this->user = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
+    }
 
 
 
@@ -197,5 +213,58 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(Sortie $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(Sortie $user): self
+    {
+        $this->users->removeElement($user);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSorties(): Collection
+    {
+        return $this->sorties;
+    }
+
+    public function addSorty(Sortie $sorty): self
+    {
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties->add($sorty);
+            $sorty->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSorty(Sortie $sorty): self
+    {
+        if ($this->sorties->removeElement($sorty)) {
+            // set the owning side to null (unless already changed)
+            if ($sorty->getUser() === $this) {
+                $sorty->setUser(null);
+            }
+        }
+
+        return $this;
+    }
    
 }
