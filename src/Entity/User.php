@@ -9,9 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'Cet email existe déjà')]
+#[UniqueEntity(fields: ['pseudo'], message: 'Ce pseudo existe déjà')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -20,33 +22,54 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    /**
+     * @Assert\Length(max=180, maxMessage="L'email doit contenir 180 caractères maximum")
+     * @Assert\NotBlank(message="Entrez votre adresse mail!")
+     */
     private ?string $email = null;
 
     #[ORM\Column(nullable: true)]
     private array $roles = [];
 
+    #[ORM\Column(length: 180, nullable: true)]
     /**
      * @var string The hashed password
+     * @ORM\Column(type="string")
      */
-    #[ORM\Column]
     private ?string $password = null;
 
     #[ORM\Column(length: 50,nullable: true)]
+    /**
+     * @Assert\Length(max=50,
+     *     maxMessage="Le pseudo doit contenir 50 caractères maximum")
+     *  @Assert\NotBlank(message="Entrez votre nom")
+     */
     private ?string $nom = null;
 
     #[ORM\Column(length: 50,nullable: true)]
+    /**
+     * @Assert\Length(max=50,
+     *     maxMessage="Le pseudo doit contenir 50 caractères maximum")
+     *  @Assert\NotBlank(message="Entrez votre prénom")
+     */
     private ?string $prenom = null;
 
     #[ORM\Column(nullable: true)]
+
     private ?int $telephone = null;
 
     #[ORM\Column(length: 180,nullable: true, unique: true)]
+    /**
+     * @Assert\Length(min=2, max=180, minMessage="Le pseudo doit contenir 2 caractères minimum",
+     *     maxMessage="Le pseudo doit contenir 180 caractères maximum")
+     *  @Assert\NotBlank(message="Entrez votre pseudo")
+     */
     private ?string $pseudo = null;
 
-    #[ORM\Column (nullable: true,unique: true)]
+    #[ORM\Column]
     private ?bool $administrateur = null;
 
-    #[ORM\Column (nullable: true,unique: true)]
+    #[ORM\Column]
     private ?bool $actif = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
@@ -245,24 +268,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->sorties;
     }
 
-    public function addSorty(Sortie $sorty): self
+    public function addSortie(Sortie $sortie): self
     {
-        if (!$this->sorties->contains($sorty)) {
-            $this->sorties->add($sorty);
-            $sorty->setUser($this);
+        if (!$this->sorties->contains($sortie)) {
+            $this->sorties->add($sortie);
+            $sortie->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeSorty(Sortie $sorty): self
+    public function removeSortie(Sortie $sortie): self
     {
-        if ($this->sorties->removeElement($sorty)) {
-            // set the owning side to null (unless already changed)
-            if ($sorty->getUser() === $this) {
-                $sorty->setUser(null);
-            }
-        }
+        $this->sorties->removeElement($sortie);
 
         return $this;
     }

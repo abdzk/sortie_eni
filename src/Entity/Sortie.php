@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
@@ -17,12 +18,21 @@ class Sortie
     private ?int $id = null;
 
     #[ORM\Column(length: 50,nullable: true)]
+    /**
+     * @Assert\Length(max=50,
+     *     maxMessage="Le nom doit contenir 50 caractères maximum")
+     * @Assert/NotBlank(message="Entrez le nom de la sortie")
+     */
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE,nullable: true)]
     private ?\DateTimeInterface $dateHeureDebut = null;
 
     #[ORM\Column(nullable: true)]
+    /**
+     * @Assert\Range(min=0,max=30,notInRangeMessage="Durée maximale : 30 jours")
+     */
+
     private ?int $duree = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE,nullable: true)]

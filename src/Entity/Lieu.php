@@ -6,6 +6,7 @@ use App\Repository\LieuRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LieuRepository::class)]
 class Lieu
@@ -15,16 +16,23 @@ class Lieu
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
+    #[ORM\Column(length: 100, nullable: true)]
+    /**
+     * @Assert\Length(max=100, maxMessage="Le nom du lieu ne doit pas dépasser 100 caractères)
+     * @Assert\NotBlank(message="Veuillez indiquer le nom du lieu")
+     */
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    /**
+     * @Assert\NotBlank(message="Veuillez indiquer la rue")
+     */
     private ?string $rue = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column]
     private ?float $latitude = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column]
     private ?float $longitude = null;
 
     #[ORM\OneToMany(mappedBy: 'lieu', targetEntity: Sortie::class)]
@@ -111,12 +119,8 @@ class Lieu
 
     public function removeSortie(Sortie $sortie): self
     {
-        if ($this->sorties->removeElement($sortie)) {
-            // set the owning side to null (unless already changed)
-            if ($sortie->getLieu() === $this) {
-                $sortie->setLieu(null);
-            }
-        }
+        $this->sorties->removeElement($sortie);
+
 
         return $this;
     }
