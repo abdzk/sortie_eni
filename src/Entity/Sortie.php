@@ -23,7 +23,8 @@ class Sortie
      * @Assert\Length(max=50,maxMessage="Le nom doit contenir 50 caractères maximum")
      * @Assert\NotBlank(message="Entrez le nom de la sortie")
      */
-     private ?string $nom = null;
+
+    private ?string $nom = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE,nullable: true)]
     private ?\DateTimeInterface $dateHeureDebut = null;

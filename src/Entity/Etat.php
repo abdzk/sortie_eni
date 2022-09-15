@@ -6,6 +6,7 @@ use App\Repository\EtatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EtatRepository::class)]
 class Etat
@@ -16,6 +17,10 @@ class Etat
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    /**
+     * @Assert\Length(max=100, maxMessage="Le labell ne doit pas depassé 100 caractéres)
+
+     */
     private ?string $libelle = null;
 
     #[ORM\OneToMany(mappedBy: 'etat', targetEntity: Sortie::class)]

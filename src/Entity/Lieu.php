@@ -16,23 +16,23 @@ class Lieu
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100, nullable: true)]
+    #[ORM\Column(length: 100)]
     /**
      * @Assert\Length(max=100, maxMessage="Le nom du lieu ne doit pas dépasser 100 caractères)
      * @Assert\NotBlank(message="Veuillez indiquer le nom du lieu")
      */
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     /**
      * @Assert\NotBlank(message="Veuillez indiquer la rue")
      */
     private ?string $rue = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $latitude = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $longitude = null;
 
     #[ORM\OneToMany(mappedBy: 'lieu', targetEntity: Sortie::class)]

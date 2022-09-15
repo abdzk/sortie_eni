@@ -31,14 +31,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private array $roles = [];
 
-    #[ORM\Column(length: 180, nullable: true)]
+    #[ORM\Column(length: 180)]
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private ?string $password = null;
 
-    #[ORM\Column(length: 50,nullable: true)]
+    #[ORM\Column(length: 50)]
     /**
      * @Assert\Length(max=50,
      *     maxMessage="Le pseudo doit contenir 50 caractères maximum")
@@ -46,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private ?string $nom = null;
 
-    #[ORM\Column(length: 50,nullable: true)]
+    #[ORM\Column(length: 50)]
     /**
      * @Assert\Length(max=50,
      *     maxMessage="Le pseudo doit contenir 50 caractères maximum")
@@ -58,7 +58,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private ?int $telephone = null;
 
-    #[ORM\Column(length: 180,nullable: true, unique: true)]
+    #[ORM\Column(length: 180, unique: true)]
     /**
      * @Assert\Length(min=2, max=180, minMessage="Le pseudo doit contenir 2 caractères minimum",
      *     maxMessage="Le pseudo doit contenir 180 caractères maximum")
