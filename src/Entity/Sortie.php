@@ -48,7 +48,7 @@ class Sortie
     private Collection $users;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
-    private ?User $user = null;
+    private ?User $organisateur = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     private ?Campus $campus = null;
@@ -169,14 +169,14 @@ class Sortie
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getOrganisateur(): ?User
     {
-        return $this->user;
+        return $this->organisateur;
     }
 
-    public function setUser(?User $user): self
+    public function setOrganisateur(?User $user): self
     {
-        $this->user = $user;
+        $this->organisateur = $user;
 
         return $this;
     }

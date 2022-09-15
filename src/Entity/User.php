@@ -78,7 +78,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Sortie::class, inversedBy: 'users')]
     private Collection $users;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Sortie::class)]
+    #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
     private Collection $sorties;
 
 
@@ -272,7 +272,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->sorties->contains($sortie)) {
             $this->sorties->add($sortie);
-            $sortie->setUser($this);
+            $sortie->setOrganisateur($this);
         }
 
         return $this;
