@@ -61,7 +61,7 @@ class Etat
         return $this;
     }
 
-    public function removeSorty(Sortie $sortie): self
+    public function removeSortie(Sortie $sortie): self
     {
         if ($this->sorties->removeElement($sortie)) {
             // set the owning side to null (unless already changed)
