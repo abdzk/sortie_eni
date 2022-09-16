@@ -1,11 +1,28 @@
-<nav>
-    <ul>
-        <li><a href="#" title="campus">Campus</a></li>
-        <li><a href="{{ path('main_accueil') }}" title="acceuil">Accueil</a></li>
-        <li><a href="#" title="villes">Villes</a></li>
-        <li><a href="{{ path('app_register') }}" title="profil">Mon Profil</a></li>
-        <li><a href="{{ path('app_logout') }}" title="deconnexion">Se déconnecté</a></li>
-        <li><a href="{{ path('sortie_creation') }}" title="creation">Créer une sortie</a></li>
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" {{ path('main_accueil') }}>Sortie Scolaire</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('main_accueil') }}" title="acceuil">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#" title="villes">Villes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_register') }}" title="register">inscription</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}" title="deconnexion">Se déconnecté</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('sortie_creation') }}" title="creation">Créer une sortie</a>
+                </li>
+            </ul>
 
-    </ul>
+        </div>
+    </div>
 </nav>
