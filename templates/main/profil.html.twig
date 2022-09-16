@@ -1,26 +1,18 @@
 {% extends 'base.html.twig' %}
 
-
-
-
+{% block title %}Mon profil{% endblock %}
 
 {% block body %}
 
-
-        {% include ('inc/nav.html.twig') %}
-        <div> Date du jour {{"now" |date('Y:m:d') }}</div>
-        <div>Participant:</div>
-
-    <h2>page profil</h2>
-    <button>Rechercher</button>
+    <div class="container">
+        <h1>Mon profil</h1>
 
 
-{% endblock %}
+        {{ form_start(ProfilType) }}
+        {{ form_widget(ProfilType) }}
 
-
-
-{% block title %}
-
-    {{ parent() }} | Home
-
+        <button type="submit">Enregistrer</button>
+        <button type="submit" class="btn">Annuler</button>
+        {{ form_end(ProfilType) }}
+    </div>
 {% endblock %}
