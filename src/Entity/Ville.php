@@ -18,17 +18,12 @@ class Ville
 
 
     #[ORM\Column(length: 100)]
-    /**
-     * @Assert\Length(max=100, maxMessage="Le nom du lieu ne doit pas dépasser 100 caractères)
-     * @Assert\NotBlank(message="Veuillez indiquer le nom de la ville")
-     */
+    #[Assert\Length(max:100, maxMessage: "Ne doit pas dépasser 100 caractères")]
+    #[Assert\NotBlank(message: "Veuillez indiquer le nom de la ville")]
     private ?string $nom = null;
 
     #[ORM\Column(nullable: true)]
-    /**
-
-     * @Assert\NotBlank(message="Veuillez indiquer le code postale de la ville")
-     */
+    #[Assert\NotBlank(message: "Veuillez indiquer le code postale de la ville")]
     private ?int $codePostal = null;
 
     #[ORM\OneToMany(mappedBy: 'ville', targetEntity: Lieu::class)]

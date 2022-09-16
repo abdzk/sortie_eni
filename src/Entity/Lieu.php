@@ -17,16 +17,12 @@ class Lieu
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    /**
-     * @Assert\Length(max=100, maxMessage="Le nom du lieu ne doit pas dépasser 100 caractères)
-     * @Assert\NotBlank(message="Veuillez indiquer le nom du lieu")
-     */
+    #[Assert\Length(max: 100,maxMessage: "Ne pas dépasser 100 caractères")]
+    #[Assert\NotBlank(message: "Veuillez indiquer le nom du lieu")]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    /**
-     * @Assert\NotBlank(message="Veuillez indiquer la rue")
-     */
+    #[Assert\NotBlank(message: "Veuillez indiquer le nom de la rue")]
     private ?string $rue = null;
 
     #[ORM\Column(nullable: true)]

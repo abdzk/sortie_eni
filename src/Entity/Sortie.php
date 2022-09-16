@@ -19,20 +19,16 @@ class Sortie
 
 
     #[ORM\Column(length: 50,nullable: true)]
-     /**
-     * @Assert\Length(max=50,maxMessage="Le nom doit contenir 50 caractères maximum")
-     * @Assert\NotBlank(message="Entrez le nom de la sortie")
-     */
-
+    #[Assert\Length(max: 50,maxMessage: "Ne pas dépasser 50 caractères")]
+    #[Assert\NotBlank(message: "Veuillez indiquer le nom de la sortie")]
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE,nullable: true)]
     private ?\DateTimeInterface $dateHeureDebut = null;
 
     #[ORM\Column(nullable: true)]
-    /**
-     * @Assert\Range(min=0,max=30,notInRangeMessage="Durée maximale : 30 jours")
-     */
+    #[Assert\Range(min: 0,max: 30,notInRangeMessage:"La durée maximale est de 30 jours")]
+
 
     private ?int $duree = null;
 
