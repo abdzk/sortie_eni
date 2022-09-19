@@ -35,9 +35,9 @@ class ProfilType extends AbstractType
             'second_options' => ['label' => 'Repeat Password'],
             ])
             ->add('campus',EntityType::class, ['class'=>Campus::class,'choice_label'=>'nom'])
-            ->add('imageFile', FileType::class, [
+            ->add('image', FileType::class, [
                         'mapped' => false
-              //  ->add('enregistrer',SubmitType::class)
+
     ])
     ;
 

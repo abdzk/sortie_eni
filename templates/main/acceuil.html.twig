@@ -5,11 +5,15 @@
 
 
 {% block body %}
-
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-succes">
+            {{ message }}
+        </div>
+    {% endfor %}
 
        
         <div> Date du jour {{"now" |date('Y:m:d') }}</div>
-        <div>Participant:{{ app.user.pseudo }}</div>
+        <div>Participant:</div>
 
     <h2>Filtrer les sortie</h2>
     <button>Rechercher</button>

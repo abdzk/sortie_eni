@@ -29,13 +29,15 @@ class ProfilUserController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+
+        $user->setPassword(
+            $userPasswordHasher->hashPassword($user,
+                $form->get('password')->getData()
+            )
+        );
         $user=$form->getData();
+
         $entityManager->persist($user);
-        $entityManager->flush();
-
-
-
- $entityManager->persist($user);
         $entityManager->flush();
         $this->addFlash('success', 'Profil modifié avec succès.');
         return $this->redirectToRoute('main_accueil',['id'=>$user->getId()]);
