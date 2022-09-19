@@ -22,10 +22,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    /**
-     * @Assert\Length(max=180, maxMessage="L'email doit contenir 180 caractères maximum")
-     * @Assert\NotBlank(message="Entrez votre adresse mail!")
-     */
+    #[Assert\Length(max: 180,maxMessage: "Ne pas dépasser 180 caractères")]
+    #[Assert\NotBlank(message: "Entrez votre adresse mail!")]
     private ?string $email = null;
 
     #[ORM\Column(nullable: true)]
@@ -39,19 +37,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
-    /**
-     * @Assert\Length(max=50,
-     *     maxMessage="Le pseudo doit contenir 50 caractères maximum")
-     *  @Assert\NotBlank(message="Entrez votre nom")
-     */
+    #[Assert\Length(max: 50,maxMessage: "Ne pas dépasser 50 caractères")]
+    #[Assert\NotBlank(message: "Entrez votre nom")]
     private ?string $nom = null;
 
     #[ORM\Column(length: 50)]
-    /**
-     * @Assert\Length(max=50,
-     *     maxMessage="Le pseudo doit contenir 50 caractères maximum")
-     *  @Assert\NotBlank(message="Entrez votre prénom")
-     */
+    #[Assert\Length(max: 50,maxMessage: "Ne pas dépasser 50 caractères")]
+    #[Assert\NotBlank(message: "Entrez votre prénom")]
     private ?string $prenom = null;
 
     #[ORM\Column(nullable: true)]
@@ -59,11 +51,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $telephone = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    /**
-     * @Assert\Length(min=2, max=180, minMessage="Le pseudo doit contenir 2 caractères minimum",
-     *     maxMessage="Le pseudo doit contenir 180 caractères maximum")
-     *  @Assert\NotBlank(message="Entrez votre pseudo")
-     */
+    #[Assert\Length(min: 2,max: 180,minMessage: "Le pseudo doit contenir 2 caractères minimum", maxMessage :"Le pseudo doit contenir 180 caractères maximum")]
+    #[Assert\NotBlank(message: "Entrez votre pseudo")]
+
     private ?string $pseudo = null;
 
     #[ORM\Column]

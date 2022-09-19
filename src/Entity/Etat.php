@@ -17,10 +17,7 @@ class Etat
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    /**
-     * @Assert\Length(max=100, maxMessage="Le labell ne doit pas depassé 100 caractéres)
-
-     */
+    #[Assert\Length(max: 100,maxMessage: "Ne pas dépasser 100 caractères")]
     private ?string $libelle = null;
 
     #[ORM\OneToMany(mappedBy: 'etat', targetEntity: Sortie::class)]
