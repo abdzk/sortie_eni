@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
+use http\Client\Curl\User;
 
 /**
  * @extends ServiceEntityRepository<Sortie>
@@ -21,6 +23,17 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
+    public function listeSorties(): ?array
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->join('s.etat', 'e')
+                      ->addSelect('e');
+
+
+        $query = $queryBuilder->getQuery();
+        $results = $query->getResult();
+        return $results;
+    }
     public function add(Sortie $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -38,6 +51,9 @@ class SortieRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+
+
 
 //    /**
 //     * @return Sortie[] Returns an array of Sortie objects

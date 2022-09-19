@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Campus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -38,6 +39,8 @@ class CampusRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+
 
 //    /**
 //     * @return Campus[] Returns an array of Campus objects
