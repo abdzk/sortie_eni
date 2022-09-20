@@ -10,11 +10,14 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'Cet email existe déjà')]
 #[UniqueEntity(fields: ['pseudo'], message: 'Ce pseudo existe déjà')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+#[Vich\Uploadable]
+class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -40,6 +43,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(max: 50,maxMessage: "Ne pas dépasser 50 caractères")]
     #[Assert\NotBlank(message: "Entrez votre nom")]
     private ?string $nom = null;
+
+    #[Vich\UploadableField(mapping: 'profil_images',fileNameProperty:'imageName')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(type:'string', nullable: true)]
+    private ?string $imageName = null;
+
 
     #[ORM\Column(length: 50)]
     #[Assert\Length(max: 50,maxMessage: "Ne pas dépasser 50 caractères")]
@@ -70,6 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
     private Collection $sorties;
+
 
 
     public function __construct()
@@ -152,6 +163,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->nom = $nom;
 
         return $this;
+    }
+
+    /**
+     * @param File|null $imageFile
+     */
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile){
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this-> imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
     }
 
     public function getPrenom(): ?string
@@ -274,5 +312,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-   
+    public function serialize(): ?string
+    {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->email,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
 }

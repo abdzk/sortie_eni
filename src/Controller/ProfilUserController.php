@@ -20,6 +20,7 @@ class ProfilUserController extends AbstractController
 
     /**
      *   @Route("/profil", name="main_profil")
+     *
      */
 
     public function modificationProfil(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
@@ -45,6 +46,7 @@ class ProfilUserController extends AbstractController
 
     return $this->render('main/profil.html.twig', [
         'ProfilType' => $form->createView(),
+       // 'user' =>$user
     ]);
 
 }

@@ -7,11 +7,11 @@ use App\Entity\User;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 
 class ProfilType extends AbstractType
@@ -33,11 +33,12 @@ class ProfilType extends AbstractType
             'second_options' => ['label' => 'Repeat Password'],
             ])
             ->add('campus',EntityType::class, ['class'=>Campus::class,'choice_label'=>'nom'])
-            ->add('image', FileType::class, [
-                        'mapped' => false
-
-    ])
-    ;
+            ->add('imageFile', VichImageType::class, [
+                'label' =>'Photo de profil',
+                'label_attr'=>[
+                    'class'=>'form-label mt-4'
+                ]
+            ]);
 
 
 }
