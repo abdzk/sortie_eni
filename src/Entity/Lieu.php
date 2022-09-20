@@ -34,6 +34,7 @@ class Lieu
     #[ORM\OneToMany(mappedBy: 'lieu', targetEntity: Sortie::class)]
     private Collection $sorties;
 
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'lieux')]
     private ?Ville $ville = null;
 

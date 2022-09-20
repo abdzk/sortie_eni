@@ -22,14 +22,18 @@ class SortieController extends AbstractController
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm ->handleRequest($request);
 
-        if($sortieForm-> $this->isSubmitted() && $sortieForm> $this->isValid())
+        if($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
             $entityManager->persist($sortie);
             $entityManager->flush();
+
+            return $this->redirectToRoute('main_accueil');
+
         }
 
 
-        return $this->render('sortie/creation.html.twig',['sortieForm'=>$sortieForm->createView()]);
+        return $this->render('sortie/creation.html.twig',
+            ['sortieForm'=>$sortieForm->createView()]);
 
     }
 

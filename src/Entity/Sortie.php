@@ -28,9 +28,7 @@ class Sortie
 
     #[ORM\Column(nullable: true)]
     #[Assert\Range(min: 0,max: 30,notInRangeMessage:"La durée maximale est de 30 jours")]
-
-
-    private ?int $duree = null;
+     private ?int $duree = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE,nullable: true)]
     private ?\DateTimeInterface $dateLimiteInscription = null;
@@ -44,15 +42,20 @@ class Sortie
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'users')]
     private Collection $users;
 
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     private ?User $organisateur = null;
 
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     private ?Campus $campus = null;
 
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     private ?Etat $etat = null;
 
+    #[Assert\NotNull]
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     private ?Lieu $lieu = null;
 

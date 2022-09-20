@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Sortie;
+use App\Models\Filtres;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
@@ -23,7 +24,7 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-    public function listeSorties(): ?array
+    public function listeSortie(Filtres $filtre): ?array
     {
         $queryBuilder = $this->createQueryBuilder('s');
         $queryBuilder->join('s.etat', 'e')

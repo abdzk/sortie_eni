@@ -15,15 +15,17 @@
         <div> Date du jour {{"now" |date('Y:m:d') }}</div>
         <div>Participant :</div>
 
-    <h2>Filtrer les sortie</h2>
-    <button>Rechercher</button>
+    <h2>Filtrer les sorties</h2>
+
+    {# Formulaire de recherches #}
 
     {{ form_start(filtreForm) }}
     {{ form_widget(filtreForm) }}
+    <button type="submit">Rechercher</button>
     {{ form_end(filtreForm) }}
 
 
-    <button type="submit">Rechercher</button>
+
 
 
 
@@ -49,15 +51,43 @@
                  <td>{{ sortie.nom }}</td>
                  <td>{{ sortie.dateHeureDebut |date('d-m-Y') }}</td>
                  <td>{{ sortie.dateLimiteInscription | date ('d-m-Y')}}</td>
-
+                    <td>{{ sortie.users | length}} / {{ sortie.nbInscriptionsMax }}</td>
                  <td>{{ sortie.etat.libelle }}</td>
                  <td></td>
                  <td>{{ sortie.organisateur.nom }}</td>
-                 <td></td>
+                 <td>
+                    {% if sortie.etat.libelle == "Créée" %}
+                     <a href="#" title="modifier">Modifier</a> <br>
+                     <a href="#" title="publier">Publier</a>
+                        {% elseif sortie.etat.libelle == "Ouverte"%}
+                            <a href="#" title="desister">Se désister</a>
+                            <a href="#" title="afficher">Afficher</a>
+                            <a href="#" title="annuler">Annuler</a>
+                            <a href="#" title="s'inscrire">S'inscrire</a>
+                          {% elseif sortie.etat.libelle == "Cloturée" %}
+                              <a href="#" title="desister">Se désister</a>
+                              <a href="#" title="afficher">Afficher</a>
+                          {% elseif sortie.etat.libelle == "Annulée" %}
+                              <a href="#" title="annuler">Annuler</a>
+                              {% else  %}
+                                 <a href="#" title="afficher">Afficher</a>
+                                  {% endif %}
 
 
+                  <!--<a href="#" title="s'inscrire">S'inscrire</a>
+                  <a href="#" title="modifier">Modifier</a>
+                  <a href="#" title="publier">Publier</a>
+                   <a href="#" title="desister">Se désister</a>
+
+                         <a href="#" title="modifier">Modifier</a>
+                  <a href="#" title="annuler">Annuler</a>
+                  -->
+                 </td>
              </tr>
              {% endfor %}
+
+
+
 
              <button>Créer une sortie</button>
 

@@ -4,10 +4,11 @@ namespace App\Controller;
 
 
 use App\Form\FiltresType;
-use App\Form\SortieType;
+
 use App\Models\Filtres;
 use App\Repository\SortieRepository;
-use App\Repository\UserRepository;
+
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -19,19 +20,18 @@ class MainController extends AbstractController
     /**
      * @Route ("/accueil",name="main_accueil")
      */
-    public function affichageSorties(SortieRepository $sortieRepository,Request $request,): Response
+    public function affichageSorties(SortieRepository $sortieRepository,Request $request,EntityManagerInterface $entityManager): Response
     {
-
-        $filtreForm = $this->createForm(FiltresType::class);
+         $filtre = new Filtres();
+        $filtreForm = $this->createForm(FiltresType::class,$filtre);
         $filtreForm->handleRequest($request);
 
+
+
         //récupère toutes les sorties
-        $sorties = $sortieRepository->findAll();
+        $sorties = $sortieRepository->listeSortie($filtre);
         //afficher une erreur si n'existe pas dans la bdd
-        if (!$sorties)
-        {
-            throw $this->createNotFoundException("Cette sortie n'existe pas !");
-        }
+
         //envoyer vers twig
         return $this->render('main/acceuil.html.twig', [
             "sorties" => $sorties,

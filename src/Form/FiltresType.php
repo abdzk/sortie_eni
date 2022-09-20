@@ -13,7 +13,7 @@ use Symfony\Component\Form\AbstractType;
 
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,9 +26,9 @@ class FiltresType extends AbstractType
     {
         $builder
             ->add('campus',EntityType::class, ['class'=>Campus::class,'choice_label'=>'nom'])
-            ->add('nom',TextType::class)
-            ->add('dateDebut',DateType::class)
-            ->add('dateFin',DateType::class)
+            ->add('nom',SearchType::class,['label'=>'Le nom de la sortie contient :'])
+            ->add('dateDebut',DateType::class,['label'=> 'Entre','widget'=>'single_text'])
+            ->add('dateFin',DateType::class,['label'=> 'Et','widget'=>'single_text'])
             ->add('sortiesOrganisateur',CheckboxType::class, [
                 'label'    => 'Sorties dont je suis l"organisateur/trice',
                 'required' => false,

@@ -29,9 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     #[Assert\NotBlank(message: "Entrez votre adresse mail!")]
     private ?string $email = null;
 
-    #[ORM\Column(nullable: true)]
-    private array $roles = [];
-
+    #[Assert\NotBlank]
     #[ORM\Column(length: 180)]
     /**
      * @var string The hashed password
@@ -72,6 +70,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     #[ORM\Column]
     private ?bool $actif = null;
 
+    #[Assert\NotNull]
+    #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Campus $campus = null;
 
