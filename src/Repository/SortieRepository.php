@@ -38,10 +38,33 @@ class SortieRepository extends ServiceEntityRepository
                      ->setParameter('campus',$filtre->campus);
 
 
-        if($filtre->nom){
+        if(!empty($filtre->nom))
+        {
             $queryBuilder->andWhere('s.nom LIKE :motCle')
                          ->setParameter('motCle','%'.$filtre->nom.'%');
         }
+
+
+        if(!empty($filtre->dateDebut))
+        {
+            $queryBuilder->andWhere('s.dateHeureDebut >= :dateDebut')
+                         ->setParameter('dateDebut',$filtre->dateDebut);
+        }
+
+       // if(!empty($filtre->dateFin))
+       // {
+          //  $queryBuilder->andWhere($expr->neq('s.duree','dateFin'))
+                       // ->setParameter('dateFin','%'.$filtre->dateFin.'%');
+        //}
+
+        if($filtre->sortiesOrganisateur == false)
+        {
+            $queryBuilder->andWhere('s.organisateur LIKE :organisateur')
+                        ->setParameter('organisateur',$filtre->sortiesOrganisateur);
+        }
+
+
+
 
 
 
