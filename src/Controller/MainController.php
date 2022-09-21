@@ -29,7 +29,7 @@ class MainController extends AbstractController
 
 
         //récupère toutes les sorties
-        $sorties = $sortieRepository->listeSortie($filtre);
+        $sorties = $sortieRepository->listeSortie($filtre,$this->getUser());
         //afficher une erreur si n'existe pas dans la bdd
 
         //envoyer vers twig

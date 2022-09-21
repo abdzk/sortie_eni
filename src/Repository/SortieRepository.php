@@ -3,11 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Sortie;
+use App\Entity\User;
 use App\Models\Filtres;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
-use http\Client\Curl\User;
+
 
 /**
  * @extends ServiceEntityRepository<Sortie>
@@ -24,7 +25,7 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-    public function listeSortie(Filtres $filtre): ?array
+    public function listeSortie(Filtres $filtre, User $user): ?array
     {
         $queryBuilder = $this->createQueryBuilder('s');
 
@@ -51,24 +52,13 @@ class SortieRepository extends ServiceEntityRepository
                          ->setParameter('dateDebut',$filtre->dateDebut);
         }
 
-       // if(!empty($filtre->dateFin))
-       // {
-          //  $queryBuilder->andWhere($expr->neq('s.duree','dateFin'))
-                       // ->setParameter('dateFin','%'.$filtre->dateFin.'%');
-        //}
 
-        if($filtre->sortiesOrganisateur == false)
-        {
-            $queryBuilder->andWhere('s.organisateur LIKE :organisateur')
-                        ->setParameter('organisateur',$filtre->sortiesOrganisateur);
+
+        if($filtre->sortiesOrganisateur)
+       {
+            $queryBuilder->andWhere('s.organisateur = :organisateur')
+                        ->setParameter('organisateur',$user);
         }
-
-
-
-
-
-
-
 
 
         $query = $queryBuilder->getQuery();
