@@ -12,8 +12,8 @@
     {% endfor %}
 
        
-        <div> Date du jour {{"now" |date('Y:m:d') }}</div>
-        <div>Participant :</div>
+        <div> Date du jour {{"now" |date('d/m/Y') }}</div>
+        <div>Participant :{{ app.user.pseudo }}</div>
 
     <h2>Filtrer les sorties</h2>
 
