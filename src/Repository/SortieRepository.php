@@ -27,8 +27,20 @@ class SortieRepository extends ServiceEntityRepository
     public function listeSortie(Filtres $filtre): ?array
     {
         $queryBuilder = $this->createQueryBuilder('s');
+
+        $expr = $queryBuilder->expr();
+
         $queryBuilder->join('s.etat', 'e')
-                      ->addSelect('e');
+                     ->addSelect('e')
+                     ->where($expr->neq('e.libelle',':libelle'))
+                     ->setParameter('libelle','Historisée')
+                     ->andWhere('s.campus = :campus')
+                     ->setParameter('campus',$filtre->campus);
+
+
+
+
+
 
 
         $query = $queryBuilder->getQuery();

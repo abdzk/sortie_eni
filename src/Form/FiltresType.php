@@ -26,9 +26,9 @@ class FiltresType extends AbstractType
     {
         $builder
             ->add('campus',EntityType::class, ['class'=>Campus::class,'choice_label'=>'nom'])
-            ->add('nom',SearchType::class,['label'=>'Le nom de la sortie contient :'])
-            ->add('dateDebut',DateType::class,['label'=> 'Entre','widget'=>'single_text'])
-            ->add('dateFin',DateType::class,['label'=> 'Et','widget'=>'single_text'])
+            ->add('nom',SearchType::class,['label'=>'Le nom de la sortie contient :','required'=>false])
+            ->add('dateDebut',DateType::class,['label'=> 'Entre','widget'=>'single_text','required'=>false])
+            ->add('dateFin',DateType::class,['label'=> 'Et','widget'=>'single_text','required'=>false])
             ->add('sortiesOrganisateur',CheckboxType::class, [
                 'label'    => 'Sorties dont je suis l"organisateur/trice',
                 'required' => false,
