@@ -38,6 +38,11 @@ class SortieRepository extends ServiceEntityRepository
                      ->setParameter('campus',$filtre->campus);
 
 
+        if($filtre->nom){
+            $queryBuilder->andWhere('s.nom LIKE :motCle')
+                         ->setParameter('motCle','%'.$filtre->nom.'%');
+        }
+
 
 
 
