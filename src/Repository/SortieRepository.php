@@ -59,7 +59,22 @@ class SortieRepository extends ServiceEntityRepository
             $queryBuilder->andWhere('s.organisateur = :organisateur')
                         ->setParameter('organisateur',$user);
         }
+        if($filtre->sortiesInscrit)
+        {
+            $queryBuilder->andWhere(':user MEMBER OF s.users')// est dans le tableau des users
+                          ->setParameter('user',$user);
+        }
+        if($filtre->sortiesNonInscrit)
+        {
+            $queryBuilder->andWhere(':user NOT MEMBER OF s.users')//n'est pas dans le tableau des users
+            ->setParameter('user',$user);
+        }
+        if($filtre->sortiesPassees)
+        {
+            $queryBuilder-> andWhere($expr->eq('e.libelle','\'Passée\''))
+                ->setParameter('libelle',$user);
 
+        }
 
         $query = $queryBuilder->getQuery();
         $results = $query->getResult();

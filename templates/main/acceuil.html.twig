@@ -53,7 +53,10 @@
                  <td>{{ sortie.dateLimiteInscription | date ('d-m-Y')}}</td>
                     <td>{{ sortie.users | length}} / {{ sortie.nbInscriptionsMax }}</td>
                  <td>{{ sortie.etat.libelle }}</td>
-                 <td></td>
+                 <td>{% for user in sortie.users %}
+                         {% if user == app.user %}<!--personne connectée au site-->           X
+                         {% endif %}
+                         {% endfor %}</td>
                  <td>{{ sortie.organisateur.nom }}</td>
                  <td>
                     {% if sortie.etat.libelle == "Créée" %}
