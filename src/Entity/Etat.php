@@ -74,4 +74,12 @@ class Etat
 
         return $this;
     }
+
+    public function setEtat($getEtat)
+    {
+    }
+
+    public function getEtat()
+    {
+    }
 }

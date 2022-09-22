@@ -1,0 +1,39 @@
+main{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+form{
+    width: 300px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+.affichageSorties{
+    margin-bottom: 50px;
+    box-shadow: 2px 1px 14px 1px;
+    margin-top: 50px;
+    width: 90%;
+}
+td{
+    margin: 20px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.containerSortieCreation{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+h1{
+    font-size: 1.5rem !important;
+}
+img{
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}

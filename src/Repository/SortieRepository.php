@@ -82,6 +82,20 @@ class SortieRepository extends ServiceEntityRepository
     }
     public function add(Sortie $entity, bool $flush = false): void
     {
+
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->join('s.users', 'o');
+
+
+        $queryBuilder->join('s.etats', 'e')
+            ->addSelect('e');
+
+
+            $queryBuilder->join('s.ville','v')
+            ->addSelect('v');
+
+
+
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {

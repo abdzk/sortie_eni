@@ -23,6 +23,11 @@ class VilleRepository extends ServiceEntityRepository
 
     public function add(Ville $entity, bool $flush = false): void
     {
+        $queryBuilder = $this->createQueryBuilder('v');
+        $queryBuilder->join('v.lieu', 'l')
+        ->addSelect('l')
+        ;
+
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {

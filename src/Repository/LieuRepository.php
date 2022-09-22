@@ -23,6 +23,11 @@ class LieuRepository extends ServiceEntityRepository
 
     public function add(Lieu $entity, bool $flush = false): void
     {
+        $queryBuilder = $this->createQueryBuilder('l');
+        $queryBuilder->join('l.ville', 'v')
+            ->addSelect('v')
+        ;
+
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {
