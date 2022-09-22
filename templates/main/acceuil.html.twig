@@ -1,37 +1,19 @@
 {% extends 'base.html.twig' %}
 
-
-
-
-
 {% block body %}
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-succes">
-            {{ message }}
-        </div>
-    {% endfor %}
-
-       
-        <div> Date du jour {{"now" |date('Y:m:d') }}</div>
-        <div>Participant :</div>
+    <div> Date du jour {{"now" |date('d/m/Y') }}</div>
+    <div>Participant :{{ app.user.pseudo }}</div>
 
     <h2>Filtrer les sorties</h2>
 
     {# Formulaire de recherches #}
-
     {{ form_start(filtreForm) }}
     {{ form_widget(filtreForm) }}
     <button type="submit">Rechercher</button>
     {{ form_end(filtreForm) }}
 
-
-
-
-
-
-
-{# Insérer affichage des sorties #}
-<table class="affichageSorties" id="Sortie" >
+    {# Insérer affichage des sorties #}
+    <table class="affichageSorties" id="Sortie" >
     <thead>
     <strong>
         <tr>
@@ -51,7 +33,7 @@
                  <td>{{ sortie.nom }}</td>
                  <td>{{ sortie.dateHeureDebut |date('d-m-Y') }}</td>
                  <td>{{ sortie.dateLimiteInscription | date ('d-m-Y')}}</td>
-                    <td>{{ sortie.users | length}} / {{ sortie.nbInscriptionsMax }}</td>
+                 <td>{{ sortie.users | length}} / {{ sortie.nbInscriptionsMax }}</td>
                  <td>{{ sortie.etat.libelle }}</td>
                  <td>{% for user in sortie.users %}
                          {% if user == app.user %}<!--personne connectée au site-->           X
@@ -60,48 +42,29 @@
                  <td>{{ sortie.organisateur.nom }}</td>
                  <td>
                     {% if sortie.etat.libelle == "Créée" %}
-                     <a href="#" title="modifier">Modifier</a> <br>
-                     <a href="#" title="publier">Publier</a>
-                        {% elseif sortie.etat.libelle == "Ouverte"%}
-                            <a href="#" title="desister">Se désister</a>
-                            <a href="#" title="afficher">Afficher</a>
-                            <a href="#" title="annuler">Annuler</a>
-                            <a href="#" title="s'inscrire">S'inscrire</a>
-                          {% elseif sortie.etat.libelle == "Cloturée" %}
-                              <a href="#" title="desister">Se désister</a>
-                              <a href="#" title="afficher">Afficher</a>
-                          {% elseif sortie.etat.libelle == "Annulée" %}
-                              <a href="#" title="annuler">Annuler</a>
-                              {% else  %}
-                                 <a href="#" title="afficher">Afficher</a>
-                                  {% endif %}
-
-
-                  <!--<a href="#" title="s'inscrire">S'inscrire</a>
-                  <a href="#" title="modifier">Modifier</a>
-                  <a href="#" title="publier">Publier</a>
-                   <a href="#" title="desister">Se désister</a>
-
-                         <a href="#" title="modifier">Modifier</a>
-                  <a href="#" title="annuler">Annuler</a>
-                  -->
+                       <a href="#" title="modifier">Modifier</a> <br>
+                       <a href="#" title="publier">Publier</a>
+                    {% elseif sortie.etat.libelle == "Ouverte"%}
+                        <a href="#" title="desister">Se désister</a>
+                        <a href="#" title="afficher">Afficher</a>
+                        <a href="#" title="annuler">Annuler</a>
+                        <a href="#" title="s'inscrire">S'inscrire</a>
+                    {% elseif sortie.etat.libelle == "Cloturée" %}
+                        <a href="#" title="desister">Se désister</a>
+                        <a href="#" title="afficher">Afficher</a>
+                    {% elseif sortie.etat.libelle == "Annulée" %}
+                        <a href="#" title="annuler">Annuler</a>
+                    {% else  %}
+                        <a href="#" title="afficher">Afficher</a>
+                    {% endif %}
                  </td>
              </tr>
              {% endfor %}
-
-
-
-
-             <button>Créer une sortie</button>
-
-
-
+             <button>
+                 <a href="{{ path('sortie_creation') }}" title="creation">Créer une sortie</a>
+             </button>
 {% endblock %}
 
-
-
 {% block title %}
-
-    {{ parent() }} | Home
-
+             {{ parent() }} | Home
 {% endblock %}
