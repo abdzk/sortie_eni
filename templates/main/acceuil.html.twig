@@ -60,9 +60,13 @@
                  </td>
              </tr>
              {% endfor %}
-             <button>
-                 <ahref="{{ path('sortie_creation') }}" title="creation">Créer une sortie</a>
-             </button>
+             {% if is_granted("ROLE_ORGANISATEUR") %}
+
+                 <a href="{{ path('sortie_creation') }}" title="creation">
+                     <button class="btn btn-lg btn-primary">Créer une sortie</button>
+                 </a>
+
+             {% endif %}
 {% endblock %}
 
 {% block title %}

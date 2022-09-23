@@ -26,9 +26,6 @@ class RegistrationFormType extends AbstractType
             ->add('nom')
             ->add('telephone')
             ->add('email')
-
-
-
             ->add('Password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',
@@ -38,12 +35,7 @@ class RegistrationFormType extends AbstractType
                 'second_options' => ['label' => 'Repeat Password'],
             ])
             ->add('campus',EntityType::class, ['class'=>Campus::class,'choice_label'=>'nom'])
-            ->add('imageFile', FileType::class, [
-                'mapped' => false
-            ])
         ;
-
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void
