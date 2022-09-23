@@ -41,27 +41,27 @@
                          {% endfor %}</td>
                  <td>{{ sortie.organisateur.nom }}</td>
                  <td>
-                    {% if sortie.etat.libelle == "Créée" %}
+                    {% if sortie.etat.libelle == "Créée"  %}
                        <a href="#" title="modifier">Modifier</a> <br>
                        <a href="#" title="publier">Publier</a>
                     {% elseif sortie.etat.libelle == "Ouverte"%}
                         <a href="#" title="desister">Se désister</a>
-                        <a href="#" title="afficher">Afficher</a>
+                        <a href="#"  title="afficher">Afficher</a>
                         <a href="#" title="annuler">Annuler</a>
                         <a href="#" title="s'inscrire">S'inscrire</a>
                     {% elseif sortie.etat.libelle == "Cloturée" %}
                         <a href="#" title="desister">Se désister</a>
-                        <a href="#" title="afficher">Afficher</a>
+                        <a href="#"  title="afficher">Afficher</a>
                     {% elseif sortie.etat.libelle == "Annulée" %}
                         <a href="#" title="annuler">Annuler</a>
                     {% else  %}
-                        <a href="#" title="afficher">Afficher</a>
+                        <a href="#"  title="afficher">Afficher</a>
                     {% endif %}
                  </td>
              </tr>
              {% endfor %}
              <button>
-                 <ahref="{{ path('sortie_creation') }}" title="creation">Créer une sortie</a>
+                 <a href="{{ path('sortie_creation') }}" title="creation">Créer une sortie</a>
              </button>
 {% endblock %}
 

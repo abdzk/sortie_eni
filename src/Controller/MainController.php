@@ -17,9 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
-    /**
-     * @Route ("/accueil",name="main_accueil")
-     */
+
+    #[Route('/accueil', name: 'main_accueil')]
     public function affichageSorties(SortieRepository $sortieRepository,Request $request,EntityManagerInterface $entityManager): Response
     {
          $filtre = new Filtres();
