@@ -2,14 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Form\SortieType;
-
-use App\Repository\EtatRepository;
-use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
-use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,28 +14,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SortieController extends AbstractController
 {
-    /**
-     * @Route ("/sortie",name="sortie_creation")
-     */
-    public function sortie(Request $request,EntityManagerInterface $entityManager,SortieRepository $sortieRepository,EtatRepository $etatRepository):Response
+
+    #[Route('/sortie', name: 'sortie_creation')]
+
+    public function sortie(Request $request,EntityManagerInterface $entityManager):Response
     {
-
-        $etats = $etatRepository->findAll();
-        $user=$this->getUser();
         $sortie = new Sortie();
-        $sortie->setOrganisateur($user);
-        $sortie->setCampus($user->getCampus());
-        $sortie->setEtat($etats[3]);
-
-
-
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm ->handleRequest($request);
 
-
         if($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
-
             $entityManager->persist($sortie);
             $entityManager->flush();
 
@@ -53,9 +37,8 @@ class SortieController extends AbstractController
             ['sortieForm'=>$sortieForm->createView()]);
 
     }
-    /**
-     * @Route("/inscription/{id}", name="inscription")
-     */
+
+    #[Route('/inscription/{id}', name: 'inscription')]
     public function inscription(int $id, SortieRepository $sortieRepository, EntityManagerInterface $entityManager): Response
     {
 
@@ -63,6 +46,9 @@ class SortieController extends AbstractController
 
         $incriptionSortie = $sortieRepository->find($id);
         if(count($incriptionSortie->getUsers())< $incriptionSortie->getNbInscriptionsMax()){
+            /**
+             * @var User $user
+             */
             $user = $this->getUser();
         }
 
@@ -80,9 +66,8 @@ class SortieController extends AbstractController
         $this->addFlash('success', "Vous êtes inscrit a la sortie");
         return $this->redirectToRoute('main_accueil');
     }
-    /**
-     * @Route("/desinscription/{id}", name="desinscription")
-     */
+
+    #[Route('/desinscription/{id}', name: 'desinscription')]
     public function desinscription (int $id, SortieRepository $sortieRepository, EntityManagerInterface $entityManager): Response
     {
         $desinscription = $sortieRepository->find($id);
@@ -90,6 +75,9 @@ class SortieController extends AbstractController
 
 
         if ($desinscription->getDateLimiteInscription() >= new \DateTime('now')){
+            /**
+             * @var User $user
+             */
             $user = $this->getUser();
             $desinscription->removeUser($user);
         }
@@ -102,16 +90,16 @@ class SortieController extends AbstractController
     }
 
 
-
-    private function isSubmitted()
+    #[Route('sortie/afficher/{id}', name: 'sortie_afficher')]
+    public function afficher(int $id,SortieRepository $sortieRepository)
     {
+
+        $sortie = $sortieRepository->find($id);
+
+        return $this->render('sortie/afficher.html.twig',[
+            "sortie"=>$sortie
+        ]);
     }
 
-    private function isValid()
-    {
-    }
 
-    private function getEtat()
-    {
-    }
 }
