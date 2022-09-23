@@ -9,9 +9,7 @@ form{
     justify-content: center;
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px!important;
 }
-
 .affichageSorties{
     margin-bottom: 50px;
     box-shadow: 2px 1px 14px 1px;
@@ -22,12 +20,8 @@ td{
     margin: 20px;
 }
 a{
-
     text-decoration: none;
     color: black;
-}
-button{
-    text-decoration-color:black !important ;
 }
 .containerSortieCreation{
     width: 100%;

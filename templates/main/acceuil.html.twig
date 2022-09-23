@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="accueilTop">
+
+    </div>
     <div> Date du jour {{"now" |date('d/m/Y') }}</div>
     <div>Participant :{{ app.user.pseudo }}</div>
 
@@ -41,32 +44,28 @@
                          {% endfor %}</td>
                  <td>{{ sortie.organisateur.nom }}</td>
                  <td>
-                    {% if sortie.etat.libelle == "Créée" %}
+                    {% if sortie.etat.libelle == "Créée"  %}
                        <a href="#" title="modifier">Modifier</a> <br>
                        <a href="#" title="publier">Publier</a>
                     {% elseif sortie.etat.libelle == "Ouverte"%}
                         <a href="#" title="desister">Se désister</a>
-                        <a href="#" title="afficher">Afficher</a>
+                        <a href="{{ path('sortie_afficher',{id : sortie.id}) }}"  title="afficher">Afficher</a>
                         <a href="#" title="annuler">Annuler</a>
                         <a href="#" title="s'inscrire">S'inscrire</a>
                     {% elseif sortie.etat.libelle == "Cloturée" %}
                         <a href="#" title="desister">Se désister</a>
-                        <a href="#" title="afficher">Afficher</a>
+                        <a href="{{ path('sortie_afficher',{id : sortie.id}) }}"  title="afficher">Afficher</a>
                     {% elseif sortie.etat.libelle == "Annulée" %}
                         <a href="#" title="annuler">Annuler</a>
                     {% else  %}
-                        <a href="#" title="afficher">Afficher</a>
+                        <a href="{{ path('sortie_afficher',{id : sortie.id}) }}"  title="afficher">Afficher</a>
                     {% endif %}
                  </td>
              </tr>
              {% endfor %}
-             {% if is_granted("ROLE_ORGANISATEUR") %}
-
-                 <a href="{{ path('sortie_creation') }}" title="creation">
-                     <button class="btn btn-lg btn-primary">Créer une sortie</button>
-                 </a>
-
-             {% endif %}
+             <button>
+                 <a href="{{ path('sortie_creation') }}" title="creation">Créer une sortie</a>
+             </button>
 {% endblock %}
 
 {% block title %}

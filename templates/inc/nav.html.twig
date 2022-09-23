@@ -11,31 +11,26 @@
             <div class="navbar-nav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {% if app.user %}
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#" title="villes">Villes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#" title="campus">Campus</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ path('main_accueil') }}" title="acceuil">Accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ path('main_profil') }}" title="Mon profil">Mon Profil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}" title="deconnexion">Se déconnecter</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#" title="villes">Villes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#" title="campus">Campus</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('main_accueil') }}" title="acceuil">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('main_profil') }}" title="Mon profil">Mon Profil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}" title="deconnexion">Se déconnecter</a>
+                        </li>
+                        {% else %}
 
 
 
-                        {% if is_granted("ROLE_ADMIN") %}
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="{{ path('app_register') }}" title="Register">register</a>
-                            </li>
-                            {% endif %}
-                    {% else %}
-                        <a class="nav-link active" aria-current="page" href="{{ path('main_accueil') }}" title="acceuil">Accueil</a>
+
 
                     {% endif %}
                 </ul>

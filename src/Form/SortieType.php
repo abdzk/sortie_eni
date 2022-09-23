@@ -34,8 +34,9 @@ class SortieType extends AbstractType
             ->add('infosSortie',TextareaType::class,['label'=>'Description et infos','required'=> false])
             //     ->add('ville',EntityType::class,['class'=>Ville::class,'choice_label'=>'nom'])
             ->add('lieu',EntityType::class,['class'=>Lieu::class,'choice_label'=>'nom','placeholder'=>'Selectionnez votre lieu'])
-          //->add('latitude',EntityType::class,['class'=>Lieu::class, 'Required'=> false ])
-           //->add('longitude',EntityType::class,['class'=>Lieu::class, 'Required'=> false ])
+
+            ->add('latitude',EntityType::class,['class'=>Lieu::class, 'Required'=> false ])
+            ->add('longitude',EntityType::class,['class'=>Lieu::class, 'Required'=> false ])
 
 
 

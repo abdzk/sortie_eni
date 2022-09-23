@@ -72,15 +72,12 @@ class SortieController extends AbstractController
     {
         $desinscription = $sortieRepository->find($id);
 
-
-
-        if ($desinscription->getDateLimiteInscription() >= new \DateTime('now')){
-            /**
+             /**
              * @var User $user
              */
             $user = $this->getUser();
             $desinscription->removeUser($user);
-        }
+
 
 
         $entityManager->persist($desinscription);

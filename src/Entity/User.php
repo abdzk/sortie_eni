@@ -120,6 +120,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
         return (string) $this->email;
     }
 
+
     /**
      * @see UserInterface
      */
@@ -128,17 +129,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_ADMIN';
-
-
         return array_unique($roles);
     }
-
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
-
         return $this;
     }
+
+
+
+
 
 
     /**
@@ -345,4 +346,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
             // $this->salt
             ) = unserialize($serialized);
     }
+
 }
